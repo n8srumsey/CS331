@@ -100,3 +100,7 @@ class Board:
     '''
     def __str__(self):
         return str(self.state)
+    
+    
+    def __eq__(self, other: Board) -> bool:
+        return np.array_equal(self.state, other.state)

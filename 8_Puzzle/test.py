@@ -1,4 +1,4 @@
-from agent import MT, CB, NA, a_star_search
+from agent import BF, MT, CB, NA, a_star_search
 from board import Board
 
 
@@ -28,6 +28,14 @@ def test(heuristic):
         else:
             print(f"Incorrect soultion for problem {i} where m={m} and s={s}")
 
+
+print("Tests for BF Heuristic")
+try:
+    test(BF)
+except Exception as e:
+    print("The following Error has occured")
+    print(e)
+print()
 
 print("Tests for MT Heuristic")
 try:

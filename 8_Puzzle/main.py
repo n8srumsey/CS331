@@ -8,7 +8,9 @@ def main():
         for seed in range(0,10):
             # Sets the seed of the problem so all students solve the same problems
             board = Board(m, seed)
-            
+            sol = board.solution
+            state = board.state
+            print(board.next_action_states())            
             start =  time.process_time()   
             '''
             ***********************************************
@@ -17,6 +19,7 @@ def main():
             '''
             end =  time.process_time()
             solution_cpu_time = end-start
+            exit()
 
 if __name__ == "__main__":
     main()
