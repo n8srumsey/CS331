@@ -46,10 +46,9 @@ def CB(board: Board) -> int:
     return np.sum(np.abs(np.array(distances)))
 
 # Non-admissible Heuristic
-
-
 def NA(board: Board) -> int:
-    return CB(board) + 1
+    # Non-admissible heuristic becuase in the case where the board is in the goal state, the heuristic will return 1
+    return MT(board) + CB(board) + 1
 
 
 class Node:
