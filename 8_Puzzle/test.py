@@ -29,39 +29,60 @@ def test(heuristic):
             print(f"Incorrect soultion for problem {i} where m={m} and s={s}")
 
 
-print("Tests for BF Heuristic")
+import time
+
+print(" Tests for BF Heuristic")
+start_time = time.time()
 try:
     test(BF)
 except Exception as e:
-    print("The following Error has occured")
+    print("The following Error has occurred")
     print(e)
+end_time = time.time()
+print("Time elapsed: ", end_time - start_time, "seconds")
 print()
 
+
+
 print("Tests for MT Heuristic")
+start_time = time.time()
 try:
     test(MT)
 except Exception as e:
-    print("The following Error has occured")
+    print("The following Error has occurred")
     print(e)
+end_time = time.time()
+print("Time elapsed: ", end_time - start_time, "seconds")
 print()
 
+
+
 print("Test for CB Heuristic")
+start_time = time.time()
 try:
     test(CB)
 except Exception as e:
-    print("The following Error has occured")
+    print("The following Error has occurred")
     print(e)
+end_time = time.time()
+print("Time elapsed: ", end_time - start_time, "seconds")
 print()
 
+
+
 print("Test for NA Heuristic")
+start_time = time.time()
 try:
     test(NA)
 except Exception as e:
-    print("The following Error has occured")
+    print("The following Error has occurred")
     print(e)
+end_time = time.time()
+print("Time elapsed: ", end_time - start_time, "seconds")
 print()
 
 
-                    
+
+            
 
 
