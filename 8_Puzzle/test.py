@@ -1,8 +1,6 @@
 from agent import BF, MT, CB, NA, a_star_search
 from board import Board
 
-
-
 def test(heuristic):
 
     optimal_solutions = {
@@ -26,7 +24,10 @@ def test(heuristic):
             else:
                 print(f"Suboptimal soultion for problem {i} where m={m} and s={s}")
         else:
-            print(f"Incorrect soultion for problem {i} where m={m} and s={s}")
+            if solution == []:
+                print(f"Solution Timed Out for problem {i} where m={m} and s={s}")
+            else:
+                print(f"Incorrect soultion for problem {i} where m={m} and s={s}")
 
 
 import time
