@@ -6,7 +6,7 @@ from board import Board
 
 if __name__ == "__main__":
     heuristics = [BF, MT, CB, NA]
-    
+
     df = pd.DataFrame(columns=['m', 'n', 'heuristic', 'cpu_time', 'correct', 'solution_length', 'search_nodes_generated']).astype({'correct': 'bool'})
     for m in [10,20,30,40,50]:
         print(f'========================\nTesting Problem {m}\n========================')

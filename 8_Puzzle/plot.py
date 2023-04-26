@@ -59,6 +59,8 @@ solution_length = solution_length.pivot(index='m', columns='heuristic', values='
 solution_length = solution_length[['BF', 'MT', 'CB', 'NA']]
 solution_length = solution_length.rename(columns={'BF': 'BF: Breadth-First', 'MT': 'MT: Misplaced Tiles', 'CB': 'CB: Manhattan Distance', 'NA': 'NA: Non-admissible'})
 
+
+
 # Barplot of Average Solution Length for Each m By Heuristic
 fig, ax = plt.subplots(figsize=(12,6))
 solution_length.plot.bar(ax=ax)
