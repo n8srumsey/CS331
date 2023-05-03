@@ -40,11 +40,11 @@ class AlphaBetaPlayer(Player):
     total_nodes_seen: used to keep track of the number of nodes the algorithm has seearched through
     symbol: X for player 1 and O for player 2
     """
-    def __init__(self, symbol: str, eval_type: int, prune: bool, max_depth: int):
+    def __init__(self, symbol, eval_type, prune, max_depth):
         Player.__init__(self, symbol)
-        self.eval_type = eval_type
-        self.prune = prune
-        self.max_depth = max_depth
+        self.eval_type = str(eval_type)
+        self.prune = str(prune)
+        self.max_depth = int(max_depth)
         
         self.max_depth_seen = 0
         self.total_nodes_seen = 0
@@ -109,15 +109,15 @@ class AlphaBetaPlayer(Player):
             return self.terminal_value(board)
 
         # H0: Piece Difference - difference in number of pieces
-        if self.eval_type == 0:
+        if self.eval_type == "0":
             return board.count_score(self.symbol) - board.count_score(self.oppSym)
         
         # H1: Mobility - difference in number of legal moves
-        elif self.eval_type == 1:
+        elif self.eval_type == "1":
             return len(self.get_successors(board, self.symbol)) - len(self.get_successors(board, self.oppSym))
         
         # H2: Custom Heuristic - Of all successor states for each player, the difference in the sum of the number of symbols that would be flipped
-        elif self.eval_type == 2:
+        elif self.eval_type == "2":
             successors = self.get_successors(board, self.symbol)
             opp_successors = self.get_successors(board, self.oppSym)
             total = 0
@@ -141,7 +141,7 @@ class AlphaBetaPlayer(Player):
         v = -float('inf')
         for s in self.get_successors(board, self.symbol):
             v = max(v, self.min_value(s, alpha, beta, depth + 1))
-            if self.prune:
+            if self.prune == '1':
                 if v >= beta:
                     return v
                 alpha = max(alpha, v)
@@ -158,7 +158,7 @@ class AlphaBetaPlayer(Player):
         v = float('inf')
         for s in self.get_successors(board, self.oppSym):
             v = min(v, self.max_value(s, alpha, beta, depth + 1))
-            if self.prune:
+            if self.prune == '1':
                 if v <= alpha:
                     return v
                 beta = min(beta, v)
@@ -172,7 +172,7 @@ class AlphaBetaPlayer(Player):
         if self.symbol == "X":
             v = -float('inf')
             for s in self.get_successors(board, self.symbol):
-                if self.prune:
+                if self.prune == '1':
                     temp = self.min_value(s, -float('inf'), float('inf'), 1)
                 else:
                     temp = self.min_value(s, -float('inf'), float('inf'), self.max_depth)
@@ -183,7 +183,7 @@ class AlphaBetaPlayer(Player):
         else:
             v = float('inf')
             for s in self.get_successors(board, self.symbol):
-                if self.prune:
+                if self.prune == '1':
                     temp = self.max_value(s, -float('inf'), float('inf'), 1)
                 else:
                     temp = self.max_value(s, -float('inf'), float('inf'), self.max_depth)

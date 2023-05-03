@@ -92,9 +92,9 @@ class GameDriver:
 def main():
     board_size = 4 
     game = GameDriver(p1type=sys.argv[1], p2type=sys.argv[2], num_rows=board_size, num_cols=board_size, 
-                      p1_eval_type=int(sys.argv[3]), p1_prune=bool(sys.argv[4]), 
-                      p2_eval_type=int(sys.argv[5]), p2_prune=bool(sys.argv[6]), 
-                      p1_depth=int(sys.argv[7]), p2_depth=int(sys.argv[8]))
+                      p1_eval_type=sys.argv[3], p1_prune=sys.argv[4], 
+                      p2_eval_type=sys.argv[5], p2_prune=sys.argv[6], 
+                      p1_depth=sys.argv[7], p2_depth=sys.argv[8])
     game.run()
 
 if __name__ == "__main__":
