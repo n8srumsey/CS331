@@ -6,13 +6,13 @@ from Plot import plot_svd
 
 BOARD_SIZE = 4
 
-heuristics = [0, 1, 2]
-pruning = [0, 1]
-svd_depths = [2, 4, 6, 8, 10, 12]
-hq_depths = [2, 4, 6, 8]
+heuristics = ["0", "1", "2"]
+pruning = ["0", "1"]
+svd_depths = ["2", "4", "6", "8", "10", "12"]
+hq_depths = ["2", "4", "6", "8"]
 
-def test_configuration(p1_heuristic: int, p1_prune: int, p1_depth: int, 
-                       p2_heuristic: int, p2_prune: int, p2_depth: int):
+def test_configuration(p1_heuristic, p1_prune, p1_depth, 
+                       p2_heuristic, p2_prune, p2_depth):
     game = GameDriver(p1type="alphabeta", p2type="alphabeta", num_rows=BOARD_SIZE, num_cols=BOARD_SIZE, 
                       p1_eval_type=p1_heuristic, p1_prune=p1_prune, 
                       p2_eval_type=p2_heuristic, p2_prune=p2_prune, 
@@ -20,7 +20,7 @@ def test_configuration(p1_heuristic: int, p1_prune: int, p1_depth: int,
     game.run()
     return game.p1.total_nodes_seen, game.p2.total_nodes_seen, game.state
 
-def test_depths(p1_heuristic: int, p1_prune: int, p2_heuristic: int, p2_prune: int, depths: list):
+def test_depths(p1_heuristic, p1_prune, p2_heuristic, p2_prune, depths):
     p1_nodes_seen = []
     p2_nodes_seen = []
     states = []

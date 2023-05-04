@@ -48,6 +48,7 @@ class AlphaBetaPlayer(Player):
         
         self.max_depth_seen = 0
         self.total_nodes_seen = 0
+        self.nodes_seen = set()
 
         if symbol == 'X':
             self.oppSym = 'O'
@@ -95,9 +96,10 @@ class AlphaBetaPlayer(Player):
                     new_board.play_move(c, r, player_symbol)
                     new_board.last_move = (c, r)
                     successors.append(new_board)
-                    self.total_nodes_seen += 1
-        
-        return successors 
+                    self.nodes_seen.add(new_board)
+                    self.total_nodes_seen = len(self.nodes_seen)
+                    
+        return successors
 
 
     def eval_board(self, board: OthelloBoard) -> float:
@@ -140,6 +142,9 @@ class AlphaBetaPlayer(Player):
             return self.eval_board(board)
         v = -float('inf')
         for s in self.get_successors(board, self.symbol):
+            self.nodes_seen.add(s)
+            self.total_nodes_seen = len(self.nodes_seen)
+            
             v = max(v, self.min_value(s, alpha, beta, depth + 1))
             if self.prune == '1':
                 if v >= beta:
@@ -157,6 +162,9 @@ class AlphaBetaPlayer(Player):
             return self.eval_board(board)
         v = float('inf')
         for s in self.get_successors(board, self.oppSym):
+            self.nodes_seen.add(s)
+            self.total_nodes_seen = len(self.nodes_seen)
+
             v = min(v, self.max_value(s, alpha, beta, depth + 1))
             if self.prune == '1':
                 if v <= alpha:
@@ -172,6 +180,9 @@ class AlphaBetaPlayer(Player):
         if self.symbol == "X":
             v = -float('inf')
             for s in self.get_successors(board, self.symbol):
+                self.nodes_seen.add(s)
+                self.total_nodes_seen = len(self.nodes_seen)
+                
                 if self.prune == '1':
                     temp = self.min_value(s, -float('inf'), float('inf'), 1)
                 else:
@@ -183,6 +194,9 @@ class AlphaBetaPlayer(Player):
         else:
             v = float('inf')
             for s in self.get_successors(board, self.symbol):
+                self.nodes_seen.add(s)
+                self.total_nodes_seen = len(self.nodes_seen)
+                
                 if self.prune == '1':
                     temp = self.max_value(s, -float('inf'), float('inf'), 1)
                 else:
@@ -197,4 +211,5 @@ class AlphaBetaPlayer(Player):
     def get_move(self, board: OthelloBoard) -> tuple:
         # Write function that returns a move (column, row) here using minimax
         # type:(board) -> (int, int)
+        print(self.total_nodes_seen, self.max_depth_seen)
         return self.alphabeta(board)

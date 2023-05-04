@@ -121,3 +121,8 @@ class OthelloBoard(Board):
         # Changes the board state with a move
         self.set_cell(col, row, symbol)
         self.flip_pieces(col, row, symbol)
+
+    def __hash__(self):
+        grid_hash = hash(tuple([tuple(row) for row in self.grid]))
+        last_move_hash = hash(self.last_move)
+        return grid_hash

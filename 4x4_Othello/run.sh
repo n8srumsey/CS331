@@ -9,7 +9,7 @@
 # argv[8] = p2_depth
 
 p1type="alphabeta"
-p2type="alphabeta"
+p2type="human"
 p1_eval_type=0
 p1_prune=0
 p2_eval_type=2
