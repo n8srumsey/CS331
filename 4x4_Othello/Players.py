@@ -82,7 +82,7 @@ class AlphaBetaPlayer(Player):
             return "X"
 
 
-    def get_successors(self, board: OthelloBoard, player_symbol: str, depth=1) -> list:
+    def get_successors(self, board: OthelloBoard, player_symbol: str) -> list:
         # Write function that takes the current state and generates all successors obtained by legal moves
         # type:(board, player_symbol) -> (list)
         successors = []
@@ -140,7 +140,7 @@ class AlphaBetaPlayer(Player):
         v = float('-inf')
         move = (None, None)
         
-        for s in self.get_successors(board, self.symbol, depth):
+        for s in self.get_successors(board, self.symbol):
             self.total_nodes_seen += 1
             v2, _ = self.min_value(s, alpha, beta, depth + 1)
             if v2 >= v:
@@ -162,7 +162,7 @@ class AlphaBetaPlayer(Player):
         v = float('inf')
         move = (None, None)
         
-        for s in self.get_successors(board, self.oppSym, depth):
+        for s in self.get_successors(board, self.oppSym):
             self.total_nodes_seen += 1
             
             v2, _ = self.max_value(s, alpha, beta, depth + 1)
