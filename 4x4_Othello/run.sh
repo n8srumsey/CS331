@@ -9,12 +9,12 @@
 # argv[8] = p2_depth
 
 p1type="alphabeta"
-p2type="human"
+p2type="alphabeta"
 p1_eval_type=0
 p1_prune=0
-p2_eval_type=2
-p2_prune=1
-p1_depth=12
-p2_depth=9
+p2_eval_type=0
+p2_prune=0
+p1_depth=8
+p2_depth=8
 
 python GameDriver.py $p1type $p2type $p1_eval_type $p1_prune $p2_eval_type $p2_prune $p1_depth $p2_depth
