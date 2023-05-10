@@ -48,13 +48,11 @@ class AlphaBetaPlayer(Player):
         
         self.max_depth_seen = 0
         self.total_nodes_seen = 0
-        self.nodes_seen = set()
 
         if symbol == 'X':
             self.oppSym = 'O'
         else:
             self.oppSym = 'X'
-
 
     def terminal_state(self, board: OthelloBoard) -> bool:
         # If either player can make a move, it's not a terminal state
@@ -96,9 +94,7 @@ class AlphaBetaPlayer(Player):
                     new_board.play_move(c, r, player_symbol)
                     new_board.last_move = (c, r)
                     successors.append(new_board)
-                    self.nodes_seen.add(new_board)
-                    self.total_nodes_seen = len(self.nodes_seen)
-                    
+
         return successors
 
 
@@ -116,7 +112,7 @@ class AlphaBetaPlayer(Player):
         
         # H1: Mobility - difference in number of legal moves
         elif self.eval_type == "1":
-            return len(self.get_successors(board, self.symbol)) - len(self.get_successors(board, self.oppSym))
+            return len(self.get_successors(board, self.symbol)) - len(self.get_successors(board, self.oppSym))        
         
         # H2: Custom Heuristic - Of all successor states for each player, the difference in the sum of the number of symbols that would be flipped
         elif self.eval_type == "2":
@@ -133,83 +129,61 @@ class AlphaBetaPlayer(Player):
         return 0.0
         
 
-    def max_value(self, board: OthelloBoard, alpha: float, beta: float, depth: int) -> float:
+    def max_value(self, board: OthelloBoard, alpha: float, beta: float, depth: int):
         # Write max_value function here
         # type:(board, float, float, int) -> (float)
         self.max_depth_seen = max(self.max_depth_seen, depth)
         
         if self.terminal_state(board) or depth == self.max_depth:
-            return self.eval_board(board)
-        v = -float('inf')
+            return self.eval_board(board), (None, None)
+        
+        v = float('-inf')
+        move = (None, None)
+        
         for s in self.get_successors(board, self.symbol):
-            self.nodes_seen.add(s)
-            self.total_nodes_seen = len(self.nodes_seen)
-            
-            v = max(v, self.min_value(s, alpha, beta, depth + 1))
-            if self.prune == '1':
-                if v >= beta:
-                    return v
+            self.total_nodes_seen += 1
+            v2, _ = self.min_value(s, alpha, beta, depth + 1)
+            if v2 >= v:
+                v, move = v2, s.last_move
                 alpha = max(alpha, v)
-        return v
+                if self.prune == '1' and v >= beta:
+                    return v, move
+        return v, move
     
     
-    def min_value(self, board: OthelloBoard, alpha: float, beta: float, depth: int) -> float:
+    def min_value(self, board: OthelloBoard, alpha: float, beta: float, depth: int):
         # Write min_value function here
         # type:(board, float, float, int) -> (float)
         self.max_depth_seen = max(self.max_depth_seen, depth)
         
         if self.terminal_state(board) or depth == self.max_depth:
-            return self.eval_board(board)
+            return self.eval_board(board), (None, None)
+        
         v = float('inf')
+        move = (None, None)
+        
         for s in self.get_successors(board, self.oppSym):
-            self.nodes_seen.add(s)
-            self.total_nodes_seen = len(self.nodes_seen)
-
-            v = min(v, self.max_value(s, alpha, beta, depth + 1))
-            if self.prune == '1':
-                if v <= alpha:
-                    return v
+            self.total_nodes_seen += 1
+            
+            v2, _ = self.max_value(s, alpha, beta, depth + 1)
+            if v2 <= v:
+                v, move = v2, s.last_move
                 beta = min(beta, v)
-        return v
+                if self.prune == '1' and v <= alpha:
+                    return v, move
+        return v, move
 
+    
     def alphabeta(self, board: OthelloBoard) -> tuple:
         # Write minimax function here using eval_board and get_successors
         # type:(board) -> (int, int)
-        col, row = None, None
-        
-        if self.symbol == "X":
-            v = -float('inf')
-            for s in self.get_successors(board, self.symbol):
-                self.nodes_seen.add(s)
-                self.total_nodes_seen = len(self.nodes_seen)
-                
-                if self.prune == '1':
-                    temp = self.min_value(s, -float('inf'), float('inf'), 1)
-                else:
-                    temp = self.min_value(s, -float('inf'), float('inf'), self.max_depth)
-                if temp >= v:
-                    v = temp
-                    col, row = s.last_move
+        _, move = self.max_value(board, alpha=-float('inf'), beta=float('inf'), depth=1)
+        col, row = move
     
-        else:
-            v = float('inf')
-            for s in self.get_successors(board, self.symbol):
-                self.nodes_seen.add(s)
-                self.total_nodes_seen = len(self.nodes_seen)
-                
-                if self.prune == '1':
-                    temp = self.max_value(s, -float('inf'), float('inf'), 1)
-                else:
-                    temp = self.max_value(s, -float('inf'), float('inf'), self.max_depth)
-                if temp <= v:
-                    v = temp
-                    col, row = s.last_move
-        
-        return col, row
+        return (col, row)
         
 
     def get_move(self, board: OthelloBoard) -> tuple:
         # Write function that returns a move (column, row) here using minimax
         # type:(board) -> (int, int)
-        print(self.total_nodes_seen, self.max_depth_seen)
         return self.alphabeta(board)

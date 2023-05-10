@@ -39,8 +39,9 @@ class GameDriver:
             (col, row) = curr_player.get_move(self.board)
             if( not self.board.is_legal_move(col, row, curr_player.symbol)):
                 print("Invalid move")
+                exit()
             else:
-                print("Move:", [col,row], "\n")
+                print("Move [r,c]:", [row,col], "\n")
                 self.board.play_move(col,row,curr_player.symbol)
                 return
 

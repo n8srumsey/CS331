@@ -23,10 +23,10 @@ class OthelloBoard(Board):
         return tmp
 
     def initialize(self):
-        self.set_cell(self.cols //2 -1, self.rows //2 -1,   self.p2_symbol)
-        self.set_cell(self.cols //2,    self.rows //2,      self.p2_symbol)
-        self.set_cell(self.cols //2 -1, self.rows //2,      self.p1_symbol)
-        self.set_cell(self.cols //2,    self.rows //2 -1,   self.p1_symbol)
+        self.set_cell(self.cols //2 -1, self.rows //2 -1,   self.p1_symbol)
+        self.set_cell(self.cols //2,    self.rows //2,      self.p1_symbol)
+        self.set_cell(self.cols //2 -1, self.rows //2,      self.p2_symbol)
+        self.set_cell(self.cols //2,    self.rows //2 -1,   self.p2_symbol)
 
     def set_coords_in_direction(self, col, row, D):#D=direction
         if(D.name == 'N'):
@@ -78,6 +78,7 @@ class OthelloBoard(Board):
             (next_col, next_row) = self.set_coords_in_direction(col, row, d)
             if(self.check_endpoint(next_col, next_row, symbol, d, False)):
                 return True
+            
         return False
         
     def flip_pieces_helper(self, col, row, symbol, d):
@@ -126,3 +127,12 @@ class OthelloBoard(Board):
         grid_hash = hash(tuple([tuple(row) for row in self.grid]))
         last_move_hash = hash(self.last_move)
         return grid_hash
+    
+    def __str__(self):
+        string = ''
+        for row in self.grid:
+            for col in row:
+                string += col + ' '
+            string += '| '
+                
+        return string

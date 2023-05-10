@@ -96,6 +96,6 @@ def plot_svd(mode='line_err'):
 
     
 if __name__ == '__main__':
-    modes = ['line_err', 'scatter', 'line']
+    modes = ['line_err'] # 'scatter', 'line']
     for m in modes:
         plot_svd(mode=m)
