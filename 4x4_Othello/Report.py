@@ -109,9 +109,9 @@ def report_heuristic_quality():
         for h2 in heuristics:
             results = WinLossResults()
             for _, row in df.iterrows():
-                if row['h1'] == h1 and row['h2'] == h2:
+                if str(row['h1']) == h1 and str(row['h2']) == h2:
                     results.update(row['state'])
-            win_loss_ratios[h1].append(results)
+            win_loss_ratios[int(h1)].append(results)
     
     for h1 in heuristics:
         for h2 in heuristics:
@@ -119,11 +119,9 @@ def report_heuristic_quality():
                 continue
             
             print(f'Heuristic {h1} vs. Heuristic {h2}')
-            print(win_loss_ratios[h1][h2])
+            print(win_loss_ratios[int(h1)][int(h2)])
             print()
     
-        
-
 if __name__ == '__main__':
     if not os.path.exists('svd_results.csv'):
         test_search_vs_depth()
