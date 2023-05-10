@@ -184,6 +184,7 @@ class AlphaBetaPlayer(Player):
                 self.total_nodes_seen = len(self.nodes_seen)
                 
                 if self.prune == '1':
+                    print(True)
                     temp = self.min_value(s, -float('inf'), float('inf'), 1)
                 else:
                     temp = self.min_value(s, -float('inf'), float('inf'), self.max_depth)
@@ -211,5 +212,5 @@ class AlphaBetaPlayer(Player):
     def get_move(self, board: OthelloBoard) -> tuple:
         # Write function that returns a move (column, row) here using minimax
         # type:(board) -> (int, int)
-        print(self.total_nodes_seen, self.max_depth_seen)
+        print(self.total_nodes_seen, self.max_depth_seend)
         return self.alphabeta(board)
