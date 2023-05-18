@@ -34,10 +34,10 @@ class GameDriver:
                 self.board.count_score(self.p1.symbol))
 
     def process_move(self, curr_player, opponent):
-        invalid_move = True
-        while(invalid_move):
+        while(True):
             (col, row) = curr_player.get_move(self.board)
-            if( not self.board.is_legal_move(col, row, curr_player.symbol)):
+            print("Move [r,c]:", [row,col], "\n")
+            if(not self.board.is_legal_move(col, row, curr_player.symbol)):
                 print("Invalid move")
                 exit()
             else:
@@ -91,7 +91,7 @@ class GameDriver:
 
 
 def main():
-    board_size = 4 
+    board_size = 4
     game = GameDriver(p1type=sys.argv[1], p2type=sys.argv[2], num_rows=board_size, num_cols=board_size, 
                       p1_eval_type=sys.argv[3], p1_prune=sys.argv[4], 
                       p2_eval_type=sys.argv[5], p2_prune=sys.argv[6], 
