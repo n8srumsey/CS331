@@ -1,0 +1,28 @@
+[Training Partition 1/4]
+	Training (trainingSet.txt):
+		Accuracy: 0.7234468937875751
+		# Samples Fitted: 124
+	Testing (testSet.txt):
+		Accuracy: 0.607645875251509
+=======================================================
+[Training Partition 2/4]
+	Training (trainingSet.txt):
+		Accuracy: 0.7975951903807615
+		# Samples Fitted: 248
+	Testing (testSet.txt):
+		Accuracy: 0.6740442655935613
+=======================================================
+[Training Partition 3/4]
+	Training (trainingSet.txt):
+		Accuracy: 0.843687374749499
+		# Samples Fitted: 372
+	Testing (testSet.txt):
+		Accuracy: 0.6921529175050302
+=======================================================
+[Training Partition 4/4]
+	Training (trainingSet.txt):
+		Accuracy: 0.9599198396793587
+		# Samples Fitted: 499
+	Testing (testSet.txt):
+		Accuracy: 0.7947686116700201
+=======================================================
